@@ -5,16 +5,16 @@ import org.json.simple.parser.JSONParser;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 class App {
     private List<Company> all = new ArrayList<>();
 
     void run() {
         boolean running = true;
+
+        String[] currencies = {"USD","EUR","RUB"};
         while(running) {
             boolean validFile = false;
 
@@ -34,6 +34,7 @@ class App {
                     System.out.println("Такого файла не сущетсвует.");
                     continue;
                 }
+
                 parse(filename);
                 printInfo();
                 printFinishedSecurities();
@@ -47,9 +48,15 @@ class App {
                     break;
                 }
                 printCompaniesAfterDate(input);
+
                 System.out.println("Введите название валюты USD/EUR/RUB. Напишите quit " +
                         "чтобы выбрать другой файл:");
                 String currency = new Scanner(System.in).next();
+                boolean contains = Arrays.stream(currencies).anyMatch(currency::equals);
+                if(!contains){
+                    System.out.println("Wrong currency");
+                    continue;
+                }
                 if (currency.equals("quit")) {
                     break;
                 }
@@ -70,9 +77,14 @@ class App {
 
     private void printCompaniesAfterDate(String dateString) {
         Date date = parseDate(dateString);
-        all.stream()
-                .filter(company -> company.hasCreatedAfterDate(date))
-                .forEach(Company::printInfo);
+        if(date.getYear() > 1950) {
+            all.stream()
+                    .filter(company -> company.hasCreatedAfterDate(date))
+                    .forEach(Company::printInfo);
+        }
+        else{
+            System.out.println("Date should be after 01.01.1950");
+        }
     }
 
     private void printSecuritiesByCurrency(String currency) {
