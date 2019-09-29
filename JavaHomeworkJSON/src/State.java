@@ -1,9 +1,8 @@
-class State {
-    private int id;
-    private String name;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    State(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+public class State {
+    @JsonProperty("id")
+    public int id;
+    @JsonProperty("name")
+    public String name;
 }
