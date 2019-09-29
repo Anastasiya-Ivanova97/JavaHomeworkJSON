@@ -1,11 +1,10 @@
-class CompanyType {
-    private int id;
-    private String name_short;
-    private String name_full;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    CompanyType(int id, String name_short, String name_full) {
-        this.id = id;
-        this.name_short = name_short;
-        this.name_full = name_full;
-    }
+public class CompanyType {
+    @JsonProperty("id")
+    public int id;
+    @JsonProperty("name_short")
+    public String nameShort;
+    @JsonProperty("name_full")
+    public String nameFull;
 }
