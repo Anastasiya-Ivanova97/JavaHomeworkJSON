@@ -1,11 +1,10 @@
-public class Country {
-    private int id;
-    private String code;
-    private String name;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    Country(int id, String code, String name) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-    }
+public class Country {
+    @JsonProperty("id")
+    public int id;
+    @JsonProperty("code")
+    public String code;
+    @JsonProperty("name")
+    public String name;
 }
