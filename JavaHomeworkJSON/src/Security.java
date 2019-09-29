@@ -1,43 +1,39 @@
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Security {
+	@JsonProperty("id")
     private int id;
+	@JsonProperty("code")
     private String code;
-    private String name_full;
+	@JsonProperty("name_full")
+    private String nameFull;
+	@JsonProperty("cfi")
     private String cfi;
-    private Date date_to;
-    private Date state_reg_date;
+	@JsonProperty("date_to")
+    private Date dateTo;
+	@JsonProperty("state_reg_date")
+    private Date stateRegDate;
+	@JsonProperty("state")
     private State state;
+	@JsonProperty("currency")
     private Currency currency;
-
-    Security(int id, String code, String name_full, String cfi, Date date_to,
-             Date state_reg_date, State state, Currency currency) {
-        this.id = id;
-        this.code = code;
-        this.name_full = name_full;
-        this.cfi = cfi;
-        this.date_to = date_to;
-        this.state_reg_date = state_reg_date;
-        this.state = state;
-        this.currency = currency;
-    }
 
     @Override
     public String toString() {
-        return id + code + name_full + cfi + date_to + state_reg_date;
+        return id + code + nameFull + cfi + dateTo + stateRegDate;
     }
 
     boolean isExpired() {
-        return new Date(System.currentTimeMillis()).after(date_to);
+        return new Date(System.currentTimeMillis()).after(dateTo);
     }
 
     void printInfo() {
         System.out.println("Код: " + code);
-        System.out.println("Дата истечения: " +new SimpleDateFormat("dd/MM/yy").format(date_to));
-        System.out.println("Название: " + name_full);
+        System.out.println("Дата истечения: " + new SimpleDateFormat("dd/MM/yy").format(dateTo));
+        System.out.println("Название: " + nameFull);
     }
 
     String getCurrencyCode() {
